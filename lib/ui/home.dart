@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
       loading = true;
     });
 
-    http.Response response = await http.get(Uri.encodeFull(BaseUrl.user_list),
+    http.Response response = await http.get(Uri.encodeFull(BaseUrl.userlist),
         headers: {"Accept": "application/json"});
 
     if (response.statusCode == 200) {
@@ -72,18 +72,18 @@ class _HomeState extends State<Home> {
                 : ListView.builder(
                     itemCount: dataFromJson == null ? 0 : dataFromJson.length,
                     itemBuilder: (context, i) {
-                      return GestureDetector(
+                      return GestureDetector( 
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => UserDetail()));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => UserDetail(dataFromJson[i]['id'])));
                         },
                         child: Card(
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              Padding(padding: EdgeInsets.all(8)),
                               Icon(Icons.account_circle),
                               Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(dataFromJson[i]['name']),
                                   Text(dataFromJson[i]['email'])
